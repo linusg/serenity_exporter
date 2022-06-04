@@ -59,4 +59,5 @@ kmallocCallCount.set(memstat.kmalloc_call_count);
 kfreeCallCount.set(memstat.kfree_call_count);
 
 // Simply output to stdout, and rely on the caller to write to a file that can be served to prometheus.
+// @ts-ignore - we don't want to pull in the "Node" or "DOM" libs.
 console.log(metrics.toString());

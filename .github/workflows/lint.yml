@@ -13,3 +13,6 @@ jobs:
       - name: Run prettier
         run: |-
           npx prettier --check .
+      - name: Run TypeScript type checks
+        run: |-
+          npx -p typescript tsc

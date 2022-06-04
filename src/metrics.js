@@ -40,9 +40,9 @@ class Metric {
     }
 }
 
-export class Gauge extends Metric {
+export class Counter extends Metric {
     constructor(options) {
-        super({ ...options, type: "gauge" });
+        super({ ...options, type: "counter" });
     }
 
     set(value, labels) {
@@ -50,9 +50,9 @@ export class Gauge extends Metric {
     }
 }
 
-export class Counter extends Metric {
+export class Gauge extends Metric {
     constructor(options) {
-        super({ ...options, type: "counter" });
+        super({ ...options, type: "gauge" });
     }
 
     set(value, labels) {
