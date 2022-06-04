@@ -4,8 +4,8 @@ A Prometheus exporter for SerenityOS.
 
 ## Installation
 
-Copy the cloned repository, or at minimum, `exporter.js`, `metrics.js`, and `run.js` into the
-SerenityOS disk image.
+Copy the cloned repository, or at minimum, `src/exporter.js`, `src/metrics.js`, and `run.js` into
+the SerenityOS disk image.
 
 NOTE: In the future a port script will be provided upstream.
 
@@ -14,7 +14,7 @@ NOTE: In the future a port script will be provided upstream.
 The exporter simply can be run standalone using the js(1) REPL, as a module:
 
 ```console
-js -m exporter.js
+js -m src/exporter.js
 ```
 
 For convenience, a SerenityOS Shell script is provided to start WebServer in the current working

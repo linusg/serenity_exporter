@@ -2,6 +2,6 @@
 
 WebServer . &
 loop {
-    js -m exporter.js > metrics.txt
+    js -m src/exporter.js > metrics.txt
     sleep 10
 }
