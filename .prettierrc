@@ -13,7 +13,7 @@
   "proseWrap": "always",
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": ["*.js", "*.ts"],
       "options": {
         "tabWidth": 4
       }
