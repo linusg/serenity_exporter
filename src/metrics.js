@@ -46,6 +46,7 @@ class Metric {
     }
 }
 
+/** https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md#counter-1 */
 export class Counter extends Metric {
     constructor(options) {
         if (!options.name.endsWith("_total")) {
@@ -59,6 +60,7 @@ export class Counter extends Metric {
     }
 }
 
+/** https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md#gauge-1 */
 export class Gauge extends Metric {
     constructor(options) {
         super({ ...options, type: "gauge" });
@@ -69,6 +71,7 @@ export class Gauge extends Metric {
     }
 }
 
+/** https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md#info-1 */
 export class Info extends Metric {
     constructor(options) {
         if (!options.name.endsWith("_info")) {
