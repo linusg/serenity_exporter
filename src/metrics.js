@@ -1,14 +1,13 @@
 export class Metrics {
-    constructor() {
-        this.metrics = [];
-    }
-
     addMetric(metric) {
-        this.metrics.push(metric);
+        this[metric.name] = metric;
     }
 
     toString() {
-        return this.metrics.map(metric => metric.toString()).join("\n\n");
+        return Object.getOwnPropertyNames(this)
+            .map(name => this[name])
+            .map(metric => metric.toString())
+            .join("\n\n");
     }
 }
 
