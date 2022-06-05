@@ -70,6 +70,12 @@ metrics.addMetric(
         help: "The system's epoch time in seconds.",
     })
 );
+metrics.addMetric(
+    new Counter({
+        name: "time_uptime_seconds_total",
+        help: "The system's uptime in seconds.",
+    })
+);
 
 // Memory
 {
@@ -88,8 +94,10 @@ metrics.addMetric(
 
 // Time
 {
+    const uptime = loadJSON("/proc/uptime");
     const epochTime = Date.now() / 1000;
     metrics["time_seconds"].set(epochTime);
+    metrics["time_uptime_seconds_total"].set(uptime);
 }
 
 // Simply output to stdout, and rely on the caller to write to a file that can be served to prometheus.
