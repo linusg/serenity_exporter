@@ -64,6 +64,12 @@ metrics.addMetric(
         help: "The total number of kfree() calls.",
     })
 );
+metrics.addMetric(
+    new Gauge({
+        name: "time_seconds",
+        help: "The system's epoch time in seconds.",
+    })
+);
 
 // Memory
 {
@@ -78,6 +84,12 @@ metrics.addMetric(
     metrics["memory_super_physical_available_bytes"].set(memstat.super_physical_available * PAGE_SIZE);
     metrics["memory_kmalloc_call_count_total"].set(memstat.kmalloc_call_count);
     metrics["memory_kfree_call_count_total"].set(memstat.kfree_call_count);
+}
+
+// Time
+{
+    const epochTime = Date.now() / 1000;
+    metrics["time_seconds"].set(epochTime);
 }
 
 // Simply output to stdout, and rely on the caller to write to a file that can be served to prometheus.
