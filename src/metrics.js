@@ -71,6 +71,9 @@ export class Gauge extends Metric {
 
 export class Info extends Metric {
     constructor(options) {
+        if (!options.name.endsWith("_info")) {
+            throw new RangeError("Info metric name must end with '_info'");
+        }
         super({ ...options, type: "info" });
     }
 
