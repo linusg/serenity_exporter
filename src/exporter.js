@@ -7,51 +7,61 @@ const metrics = new Metrics("serenity");
 metrics.addMetric(
     new Gauge({
         name: "memory_kmalloc_allocated_bytes",
+        help: "The total amount of allocated kmalloc (Kernel heap) memory in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_kmalloc_available_bytes",
+        help: "The total amount of available kmalloc (Kernel heap) memory in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_user_physical_allocated_bytes",
+        help: "The total amount of memory allocated as user mode pages in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_user_physical_available_bytes",
+        help: "The total amount of unused memory available as user mode pages in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_user_physical_committed_bytes",
+        help: "The total amount of unused but reserved memory available as user mode pages in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_user_physical_uncommitted_bytes",
+        help: "The total amount of unused, unreserved memory available as user mode pages in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_super_physical_allocated_bytes",
+        help: "The total amount of memory allocated as superuser mode pages in bytes.",
     })
 );
 metrics.addMetric(
     new Gauge({
         name: "memory_super_physical_available_bytes",
+        help: "The total amount of unused memory available as superuser mode pages in bytes.",
     })
 );
 metrics.addMetric(
     new Counter({
         name: "memory_kmalloc_call_count_total",
+        help: "The total number of kmalloc() calls.",
     })
 );
 metrics.addMetric(
     new Counter({
         name: "memory_kfree_call_count_total",
+        help: "The total number of kfree() calls.",
     })
 );
 
