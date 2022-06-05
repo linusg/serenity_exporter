@@ -13,7 +13,7 @@ type MetricValue = {
 };
 
 export declare class Metrics {
-    constructor();
+    constructor(namespace: string);
 
     addMetric(metric: Metric): void;
     toString(): string;
@@ -28,7 +28,7 @@ declare class Metric {
     values: MetricValue[];
 
     addMetric(metric: Metric): void;
-    toString(): string;
+    toStringWithNamespace(namespace: string): string;
 }
 
 export declare class Counter extends Metric {

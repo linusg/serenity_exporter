@@ -1,12 +1,18 @@
 export class Metrics {
+    constructor(namespace) {
+        this.namespace = namespace;
+        this.metricNames = [];
+    }
+
     addMetric(metric) {
+        this.metricNames.push(metric.name);
         this[metric.name] = metric;
     }
 
     toString() {
-        return Object.getOwnPropertyNames(this)
+        return this.metricNames
             .map(name => this[name])
-            .map(metric => metric.toString())
+            .map(metric => metric.toStringWithNamespace(this.namespace))
             .join("\n\n");
     }
 }
@@ -19,20 +25,21 @@ class Metric {
         this.values = [];
     }
 
-    toString() {
+    toStringWithNamespace(namespace) {
         const lines = [];
-        lines.push(`# TYPE ${this.name} ${this.type}`);
+        const name = `${namespace}_${this.name}`;
+        lines.push(`# TYPE ${name} ${this.type}`);
         if (this.help) {
-            lines.push(`# HELP ${this.name} ${this.help}`);
+            lines.push(`# HELP ${name} ${this.help}`);
         }
         for (const { value, labels } of this.values) {
             if (!labels || Object.keys(labels).length === 0) {
-                lines.push(`${this.name} ${value}`);
+                lines.push(`${name} ${value}`);
             } else {
                 const joinedLabels = Object.entries(labels)
                     .map(([key, value]) => `${key}="${value}"`)
                     .join(",");
-                lines.push(`${this.name}{${joinedLabels}} ${value}`);
+                lines.push(`${name}{${joinedLabels}} ${value}`);
             }
         }
         return lines.join("\n");
