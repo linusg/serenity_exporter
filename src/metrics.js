@@ -42,6 +42,9 @@ class Metric {
 
 export class Counter extends Metric {
     constructor(options) {
+        if (!options.name.endsWith("_total")) {
+            throw new RangeError("Counter metric name must end with '_total'");
+        }
         super({ ...options, type: "counter" });
     }
 
