@@ -1,4 +1,4 @@
-import { Counter, Gauge, Metrics } from "./metrics.js";
+import { Counter, Gauge, Info, Metrics } from "./metrics.js";
 
 const PAGE_SIZE = 4096;
 
@@ -65,6 +65,12 @@ metrics.addMetric(
     })
 );
 metrics.addMetric(
+    new Info({
+        name: "os_info",
+        help: "OS version information.",
+    })
+);
+metrics.addMetric(
     new Gauge({
         name: "time_seconds",
         help: "The system's epoch time in seconds.",
@@ -90,6 +96,13 @@ metrics.addMetric(
     metrics["memory_super_physical_available_bytes"].set(memstat.super_physical_available * PAGE_SIZE);
     metrics["memory_kmalloc_call_count_total"].set(memstat.kmalloc_call_count);
     metrics["memory_kfree_call_count_total"].set(memstat.kfree_call_count);
+}
+
+// OS
+{
+    const versionParts = loadINI("/res/version.ini");
+    const version = `${versionParts["Version"]["Major"]}.${versionParts["Version"]["Minor"]}.${versionParts["Version"]["Git"]}`;
+    metrics["os_info"].set({ version });
 }
 
 // Time
