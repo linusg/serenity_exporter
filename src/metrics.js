@@ -77,7 +77,8 @@ export class Info extends Metric {
         if (!options.name.endsWith("_info")) {
             throw new RangeError("Info metric name must end with '_info'");
         }
-        super({ ...options, type: "info" });
+        // FIXME: Apparently Prometheus doesn't support "info".
+        super({ ...options, type: "gauge" });
     }
 
     set(labels) {
