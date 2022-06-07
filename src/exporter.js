@@ -87,7 +87,7 @@ metrics.addMetric(
 {
     const memstat = loadJSON("/proc/memstat");
     metrics["memory_kmalloc_allocated_bytes"].set(memstat.kmalloc_allocated);
-    metrics["memory_kmalloc_allocated_bytes"].set(memstat.kmalloc_available);
+    metrics["memory_kmalloc_available_bytes"].set(memstat.kmalloc_available);
     metrics["memory_user_physical_allocated_bytes"].set(memstat.user_physical_allocated * PAGE_SIZE);
     metrics["memory_user_physical_available_bytes"].set(memstat.user_physical_available * PAGE_SIZE);
     metrics["memory_user_physical_committed_bytes"].set(memstat.user_physical_committed * PAGE_SIZE);
