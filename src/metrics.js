@@ -2,16 +2,39 @@ export class Registry {
     constructor(namespace) {
         this.namespace = namespace;
         this.metrics = {};
+        this.collectors = {};
     }
 
     addMetric(metric) {
         this.metrics[metric.name] = metric;
     }
 
+    addCollector(collector) {
+        this.collectors[collector.name] = collector;
+        for (const metric of collector.metrics) {
+            this.addMetric(metric);
+        }
+    }
+
     toString() {
         return Object.values(this.metrics)
             .map(metric => metric.toStringWithNamespace(this.namespace))
             .join("\n\n");
+    }
+}
+
+export class Collector {
+    constructor() {
+        this.metrics = undefined;
+        this.name = undefined;
+    }
+
+    collect(registry) {
+        this.updateMetrics(registry);
+    }
+
+    updateMetrics(registry) {
+        throw new Error("Method not implemented.");
     }
 }
 

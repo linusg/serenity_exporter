@@ -4,9 +4,21 @@ export declare class Registry {
     // Value typed as intersection of all `Metric` subclasses so that
     // `metrics["name"]` isn't typed too strictly.
     metrics: Record<string, Counter & Gauge & Info>;
+    collectors: Record<string, Collector>;
 
     addMetric(metric: Metric): void;
+    addCollector(collector: Collector): void;
     toString(): string;
+}
+
+export declare abstract class Collector {
+    constructor();
+
+    abstract readonly name: string;
+    abstract readonly metrics: Metric[];
+
+    collect(registry: Registry): void;
+    protected abstract updateMetrics(registry: Registry): void;
 }
 
 type MetricType = "counter" | "gauge" | "info";
