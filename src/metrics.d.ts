@@ -1,3 +1,10 @@
+export declare class Registry {
+    constructor(namespace: string);
+
+    addMetric(metric: Metric): void;
+    toString(): string;
+}
+
 type MetricType = "counter" | "gauge" | "info";
 
 type MetricOptions = {
@@ -11,13 +18,6 @@ type MetricValue = {
     value: number;
     labels?: MetricLabels;
 };
-
-export declare class Metrics {
-    constructor(namespace: string);
-
-    addMetric(metric: Metric): void;
-    toString(): string;
-}
 
 declare class Metric {
     constructor(options: MetricOptions & { type: MetricType });

@@ -1,4 +1,4 @@
-export class Metrics {
+export class Registry {
     constructor(namespace) {
         this.namespace = namespace;
         this.metricNames = [];
