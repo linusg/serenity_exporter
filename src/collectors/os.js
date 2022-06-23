@@ -11,8 +11,10 @@ export class OSCollector extends Collector {
     ];
 
     updateMetrics(registry) {
-        const versionParts = loadINI("/res/version.ini");
-        const version = `${versionParts["Version"]["Major"]}.${versionParts["Version"]["Minor"]}.${versionParts["Version"]["Git"]}`;
+        const {
+            Version: { Major: major, Minor: minor, Git: git },
+        } = loadINI("/res/version.ini");
+        const version = `${major}.${minor}.${git}`;
         registry.metrics["os_info"].set({ version });
     }
 }
