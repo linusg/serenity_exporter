@@ -18,6 +18,9 @@ export class Registry {
     }
 
     addCollector(collector) {
+        if (!this.hasCollectors) {
+            this.#addScrapeCollectorMetrics();
+        }
         this.collectors[collector.name] = collector;
         for (const metric of collector.metrics) {
             this.addMetric(metric);
@@ -29,6 +32,21 @@ export class Registry {
             .map(metric => metric.toStringWithNamespace(this.namespace))
             .join("\n\n");
     }
+
+    #addScrapeCollectorMetrics() {
+        this.addMetric(
+            new Gauge({
+                name: "scrape_collector_duration_seconds",
+                help: "Duration of a collector scrape in seconds.",
+            })
+        );
+        this.addMetric(
+            new Gauge({
+                name: "scrape_collector_success",
+                help: "Whether a collector scrape succeded.",
+            })
+        );
+    }
 }
 
 export class Collector {
@@ -38,7 +56,20 @@ export class Collector {
     }
 
     collect(registry) {
-        this.updateMetrics(registry);
+        if (registry.collectors[this.name] !== this) {
+            throw new Error("Collector has not been added to registry!");
+        }
+        let success;
+        const start = Date.now();
+        try {
+            this.updateMetrics(registry);
+            success = true;
+        } catch {
+            success = false;
+        }
+        const end = Date.now();
+        registry.metrics["scrape_collector_duration_seconds"].set((end - start) / 1000, { collector: this.name });
+        registry.metrics["scrape_collector_success"].set(success ? 1 : 0, { collector: this.name });
     }
 
     updateMetrics(registry) {
