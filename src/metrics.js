@@ -5,6 +5,14 @@ export class Registry {
         this.collectors = {};
     }
 
+    get hasMetrics() {
+        return Object.keys(this.metrics).length > 0;
+    }
+
+    get hasCollectors() {
+        return Object.keys(this.collectors).length > 0;
+    }
+
     addMetric(metric) {
         this.metrics[metric.name] = metric;
     }

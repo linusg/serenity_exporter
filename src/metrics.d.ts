@@ -6,6 +6,9 @@ export declare class Registry {
     metrics: Record<string, Counter & Gauge & Info>;
     collectors: Record<string, Collector>;
 
+    get hasMetrics(): boolean;
+    get hasCollectors(): boolean;
+
     addMetric(metric: Metric): void;
     addCollector(collector: Collector): void;
     toString(): string;
