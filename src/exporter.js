@@ -86,31 +86,31 @@ registry.addMetric(
 // Memory
 {
     const memstat = loadJSON("/proc/memstat");
-    registry["memory_kmalloc_allocated_bytes"].set(memstat.kmalloc_allocated);
-    registry["memory_kmalloc_available_bytes"].set(memstat.kmalloc_available);
-    registry["memory_user_physical_allocated_bytes"].set(memstat.user_physical_allocated * PAGE_SIZE);
-    registry["memory_user_physical_available_bytes"].set(memstat.user_physical_available * PAGE_SIZE);
-    registry["memory_user_physical_committed_bytes"].set(memstat.user_physical_committed * PAGE_SIZE);
-    registry["memory_user_physical_uncommitted_bytes"].set(memstat.user_physical_uncommitted * PAGE_SIZE);
-    registry["memory_super_physical_allocated_bytes"].set(memstat.super_physical_allocated * PAGE_SIZE);
-    registry["memory_super_physical_available_bytes"].set(memstat.super_physical_available * PAGE_SIZE);
-    registry["memory_kmalloc_call_count_total"].set(memstat.kmalloc_call_count);
-    registry["memory_kfree_call_count_total"].set(memstat.kfree_call_count);
+    registry.metrics["memory_kmalloc_allocated_bytes"].set(memstat.kmalloc_allocated);
+    registry.metrics["memory_kmalloc_available_bytes"].set(memstat.kmalloc_available);
+    registry.metrics["memory_user_physical_allocated_bytes"].set(memstat.user_physical_allocated * PAGE_SIZE);
+    registry.metrics["memory_user_physical_available_bytes"].set(memstat.user_physical_available * PAGE_SIZE);
+    registry.metrics["memory_user_physical_committed_bytes"].set(memstat.user_physical_committed * PAGE_SIZE);
+    registry.metrics["memory_user_physical_uncommitted_bytes"].set(memstat.user_physical_uncommitted * PAGE_SIZE);
+    registry.metrics["memory_super_physical_allocated_bytes"].set(memstat.super_physical_allocated * PAGE_SIZE);
+    registry.metrics["memory_super_physical_available_bytes"].set(memstat.super_physical_available * PAGE_SIZE);
+    registry.metrics["memory_kmalloc_call_count_total"].set(memstat.kmalloc_call_count);
+    registry.metrics["memory_kfree_call_count_total"].set(memstat.kfree_call_count);
 }
 
 // OS
 {
     const versionParts = loadINI("/res/version.ini");
     const version = `${versionParts["Version"]["Major"]}.${versionParts["Version"]["Minor"]}.${versionParts["Version"]["Git"]}`;
-    registry["os_info"].set({ version });
+    registry.metrics["os_info"].set({ version });
 }
 
 // Time
 {
     const uptime = loadJSON("/proc/uptime");
     const epochTime = Date.now() / 1000;
-    registry["time_seconds"].set(epochTime);
-    registry["time_uptime_seconds_total"].set(uptime);
+    registry.metrics["time_seconds"].set(epochTime);
+    registry.metrics["time_uptime_seconds_total"].set(uptime);
 }
 
 // Simply output to stdout, and rely on the caller to write to a file that can be served to prometheus.

@@ -1,17 +1,15 @@
 export class Registry {
     constructor(namespace) {
         this.namespace = namespace;
-        this.metricNames = [];
+        this.metrics = {};
     }
 
     addMetric(metric) {
-        this.metricNames.push(metric.name);
-        this[metric.name] = metric;
+        this.metrics[metric.name] = metric;
     }
 
     toString() {
-        return this.metricNames
-            .map(name => this[name])
+        return Object.values(this.metrics)
             .map(metric => metric.toStringWithNamespace(this.namespace))
             .join("\n\n");
     }

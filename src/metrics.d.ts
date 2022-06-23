@@ -1,6 +1,10 @@
 export declare class Registry {
     constructor(namespace: string);
 
+    // Value typed as intersection of all `Metric` subclasses so that
+    // `metrics["name"]` isn't typed too strictly.
+    metrics: Record<string, Counter & Gauge & Info>;
+
     addMetric(metric: Metric): void;
     toString(): string;
 }
